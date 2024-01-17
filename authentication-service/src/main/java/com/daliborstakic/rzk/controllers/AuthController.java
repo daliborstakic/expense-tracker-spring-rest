@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.daliborstakic.rzk.beans.AuthRequest;
-import com.daliborstakic.rzk.model.User;
+import com.daliborstakic.rzk.beans.User;
 import com.daliborstakic.rzk.services.AuthService;
 
 @RestController
