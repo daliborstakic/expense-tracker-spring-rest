@@ -20,6 +20,8 @@ public class ApiGatewayConfiguration {
 		return builder.routes().route(p -> p.path("/auth/**").uri("lb://authentication-service"))
 				.route(p -> p.path("/currencies/**").filters(f -> f.filter(authenticationFilter().apply((Config) null)))
 						.uri("lb://currency-service"))
+				.route(p -> p.path("/expenses/**").filters(f -> f.filter(authenticationFilter().apply((Config) null)))
+						.uri("lb://expense-service"))
 				.build();
 	}
 
