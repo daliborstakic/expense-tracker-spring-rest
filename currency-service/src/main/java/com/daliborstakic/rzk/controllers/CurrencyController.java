@@ -4,11 +4,13 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.daliborstakic.rzk.exceptions.CurrencyNotFoundException;
 import com.daliborstakic.rzk.model.Currency;
 import com.daliborstakic.rzk.services.CurrencyService;
 
@@ -26,5 +28,10 @@ public class CurrencyController {
 	@PostMapping("/addCurrency")
 	public Currency addCurrency(@RequestBody Currency currency) {
 		return currencyService.addCurrency(currency);
+	}
+
+	@GetMapping("/getCurrency/{idCurrency}")
+	public Currency getCurrency(@PathVariable Integer idCurrency) throws CurrencyNotFoundException {
+		return currencyService.getCurrency(idCurrency);
 	}
 }
