@@ -13,7 +13,7 @@ public class ExpenseService {
 	@Autowired
 	ExpenseRepository expenseRepository;
 
-	public List<Expense> getExpenses() {
-		return expenseRepository.findAll();
+	public List<Expense> getExpenses(String username) {
+		return expenseRepository.findByUsername(username);
 	}
 }
