@@ -4,9 +4,11 @@ import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Function;
 
 import org.springframework.stereotype.Service;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
@@ -17,7 +19,6 @@ public class JWTService {
 	public static final String Secret = "13YftlGeO0/w6PDF0brOP7U6itMln9XNo5qou6Lh7xpl9MFV88OTYYfASO9LOo2O\n";
 
 	public void validateToken(final String token) {
-		System.out.println("Jovan");
 		Jwts.parserBuilder().setSigningKey(getSignKey()).build().parseClaimsJws(token);
 	}
 
@@ -35,5 +36,18 @@ public class JWTService {
 	private Key getSignKey() {
 		byte[] keyBytes = Decoders.BASE64.decode(Secret);
 		return Keys.hmacShaKeyFor(keyBytes);
+	}
+
+	public String extractUsername(String token) {
+		return extractClaim(token, Claims::getSubject);
+	}
+
+	public <T> T extractClaim(String token, Function<Claims, T> claimsResovler) {
+		final Claims claims = extractAllClaims(token);
+		return claimsResovler.apply(claims);
+	}
+
+	private Claims extractAllClaims(String token) {
+		return Jwts.parserBuilder().setSigningKey(getSignKey()).build().parseClaimsJws(token).getBody();
 	}
 }
