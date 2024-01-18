@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+import org.springframework.boot.json.JsonParseException;
 import org.springframework.stereotype.Service;
 
 import io.jsonwebtoken.Claims;
@@ -18,7 +19,7 @@ import io.jsonwebtoken.security.Keys;
 public class JWTService {
 	public static final String Secret = "13YftlGeO0/w6PDF0brOP7U6itMln9XNo5qou6Lh7xpl9MFV88OTYYfASO9LOo2O\n";
 
-	public void validateToken(final String token) {
+	public void validateToken(final String token) throws JsonParseException {
 		Jwts.parserBuilder().setSigningKey(getSignKey()).build().parseClaimsJws(token);
 	}
 

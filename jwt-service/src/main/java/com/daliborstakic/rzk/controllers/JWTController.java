@@ -1,6 +1,7 @@
 package com.daliborstakic.rzk.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.json.JsonParseException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +21,7 @@ public class JWTController {
 	}
 
 	@GetMapping("/validateToken/{token}")
-	public void validateToken(@PathVariable String token) {
+	public void validateToken(@PathVariable String token) throws JsonParseException {
 		jwtService.validateToken(token);
 	}
 
