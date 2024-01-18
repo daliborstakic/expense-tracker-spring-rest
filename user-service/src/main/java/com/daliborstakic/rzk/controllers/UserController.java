@@ -13,6 +13,8 @@ import com.daliborstakic.rzk.exceptions.UserNotFoundException;
 import com.daliborstakic.rzk.model.User;
 import com.daliborstakic.rzk.services.UserService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/users")
 public class UserController {
@@ -20,20 +22,12 @@ public class UserController {
 	private UserService userService;
 
 	@PostMapping("/saveUser")
-	public User saveUser(@RequestBody User user) {
-		try {
-			return userService.saveUser(user);
-		} catch (UserAlreadyExistsException e) {
-			return null;
-		}
+	public User saveUser(@RequestBody @Valid User user) throws UserAlreadyExistsException {
+		return userService.saveUser(user);
 	}
 
 	@GetMapping("/findByUsername/{username}")
-	public User findByUsername(@PathVariable String username) {
-		try {
-			return userService.findByUsername(username);
-		} catch (UserNotFoundException e) {
-			return null;
-		}
+	public User findByUsername(@PathVariable @Valid String username) throws UserNotFoundException {
+		return userService.findByUsername(username);
 	}
 }

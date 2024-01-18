@@ -19,7 +19,8 @@ public class UserService {
 		Optional<User> existingUser = userRepository.findByUsername(user.getUsername());
 
 		if (existingUser.isPresent())
-			throw new UserAlreadyExistsException(user.getUsername());
+			throw new UserAlreadyExistsException("User with the given username already exists in the system!",
+					user.getUsername());
 
 		return userRepository.save(user);
 	}
@@ -28,7 +29,7 @@ public class UserService {
 		Optional<User> potentialUser = userRepository.findByUsername(username);
 
 		if (potentialUser.isEmpty())
-			throw new UserNotFoundException(username);
+			throw new UserNotFoundException("An user has not been found with the given username!", username);
 
 		return potentialUser.get();
 	}
