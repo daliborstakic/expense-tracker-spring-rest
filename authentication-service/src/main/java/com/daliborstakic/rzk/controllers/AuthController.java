@@ -15,6 +15,8 @@ import com.daliborstakic.rzk.beans.AuthRequest;
 import com.daliborstakic.rzk.beans.User;
 import com.daliborstakic.rzk.services.AuthService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
@@ -25,12 +27,12 @@ public class AuthController {
 	private AuthenticationManager authenticationManager;
 
 	@PostMapping("/register")
-	public String register(@RequestBody User newUser) {
+	public String register(@RequestBody @Valid User newUser) {
 		return authService.saveUser(newUser);
 	}
 
 	@PostMapping("/token")
-	public String getToken(@RequestBody AuthRequest authRequest) {
+	public String getToken(@RequestBody @Valid AuthRequest authRequest) {
 		Authentication authenticate = authenticationManager.authenticate(
 				new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
 
