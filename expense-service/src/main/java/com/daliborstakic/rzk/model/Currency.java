@@ -3,6 +3,8 @@ package com.daliborstakic.rzk.model;
 import java.io.Serializable;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -29,6 +31,7 @@ public class Currency implements Serializable {
 
 	// bi-directional many-to-one association to Expense
 	@OneToMany(mappedBy = "currency")
+	@JsonIgnore
 	private List<Expense> expenses;
 
 	public Currency() {

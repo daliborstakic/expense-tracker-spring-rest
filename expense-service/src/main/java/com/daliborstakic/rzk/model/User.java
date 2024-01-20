@@ -1,8 +1,16 @@
 package com.daliborstakic.rzk.model;
 
 import java.io.Serializable;
-import jakarta.persistence.*;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.NamedQuery;
+import jakarta.persistence.OneToMany;
 
 /**
  * The persistent class for the User database table.
@@ -19,12 +27,14 @@ public class User implements Serializable {
 
 	private String email;
 
+	@JsonIgnore
 	private String password;
 
 	private String username;
 
 	// bi-directional many-to-one association to Expense
 	@OneToMany(mappedBy = "user")
+	@JsonIgnore
 	private List<Expense> expenses;
 
 	public User() {

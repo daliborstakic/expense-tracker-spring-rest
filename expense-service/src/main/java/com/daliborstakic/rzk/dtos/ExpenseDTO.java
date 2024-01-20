@@ -3,11 +3,28 @@ package com.daliborstakic.rzk.dtos;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+
 public class ExpenseDTO {
+	@NotBlank(message = "Description cannot be blank")
+	@Size(max = 255, message = "Description must be at most 255 characters")
 	private String description;
+
+	@NotNull(message = "Amount cannot be null")
 	private BigDecimal amount;
+
+	@NotNull(message = "Currency cannot be null")
 	private Integer currency;
+
+	@NotNull(message = "Category cannot be null")
 	private Integer category;
+
+	@NotNull(message = "Date cannot be null")
+	@Temporal(TemporalType.DATE)
 	private Date date;
 
 	public ExpenseDTO(String description, BigDecimal amount, Integer currency, Integer category, Date date) {
