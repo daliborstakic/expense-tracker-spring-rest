@@ -24,7 +24,7 @@ public class CustomResponseEntityExceptionHandler extends ResponseEntityExceptio
 	public ResponseEntity<ErrorMessage> handleIllegalArgumentException(IllegalArgumentException ex) {
 		return new ResponseEntity<ErrorMessage>(new ErrorMessage("Missing parameters!"), HttpStatus.BAD_REQUEST);
 	}
-	
+
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
 			HttpHeaders headers, HttpStatusCode status, WebRequest request) {
 		ValidationErrorEntity sd = new ValidationErrorEntity("Total errors: " + ex.getErrorCount() + ". First error: "
