@@ -40,7 +40,7 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
 			try {
 				String url = "http://localhost:8777/jwt/validateToken/{token}";
 
-				Map<String, Object> pathVariables = new HashMap<>();
+				Map<String, Object> pathVariables = new HashMap<>(); 
 				pathVariables.put("token", authHeaders);
 
 				new RestTemplate().getForEntity(url, Void.class, pathVariables);
