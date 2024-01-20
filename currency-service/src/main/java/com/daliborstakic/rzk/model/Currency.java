@@ -1,16 +1,14 @@
 package com.daliborstakic.rzk.model;
 
 import java.io.Serializable;
-import java.util.List;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.NamedQuery;
-import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 /**
  * The persistent class for the Currency database table.
@@ -25,19 +23,12 @@ public class Currency implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idCurrency;
 
+	@NotBlank(message = "Currency code cannot be blank")
+	@Size(min = 3, max = 3, message = "Currency code must be exactly 3 characters long")
 	private String currencyCode;
 
+	@NotBlank(message = "Currency name cannot be blank")
 	private String currencyName;
-
-	// bi-directional many-to-one association to ExchangeRate
-	@JsonIgnore
-	@OneToMany(mappedBy = "currency1")
-	private List<ExchangeRate> exchangeRates1;
-
-	// bi-directional many-to-one association to ExchangeRate
-	@JsonIgnore
-	@OneToMany(mappedBy = "currency2")
-	private List<ExchangeRate> exchangeRates2;
 
 	public Currency() {
 	}
@@ -65,49 +56,4 @@ public class Currency implements Serializable {
 	public void setCurrencyName(String currencyName) {
 		this.currencyName = currencyName;
 	}
-
-	public List<ExchangeRate> getExchangeRates1() {
-		return this.exchangeRates1;
-	}
-
-	public void setExchangeRates1(List<ExchangeRate> exchangeRates1) {
-		this.exchangeRates1 = exchangeRates1;
-	}
-
-	public ExchangeRate addExchangeRates1(ExchangeRate exchangeRates1) {
-		getExchangeRates1().add(exchangeRates1);
-		exchangeRates1.setCurrency1(this);
-
-		return exchangeRates1;
-	}
-
-	public ExchangeRate removeExchangeRates1(ExchangeRate exchangeRates1) {
-		getExchangeRates1().remove(exchangeRates1);
-		exchangeRates1.setCurrency1(null);
-
-		return exchangeRates1;
-	}
-
-	public List<ExchangeRate> getExchangeRates2() {
-		return this.exchangeRates2;
-	}
-
-	public void setExchangeRates2(List<ExchangeRate> exchangeRates2) {
-		this.exchangeRates2 = exchangeRates2;
-	}
-
-	public ExchangeRate addExchangeRates2(ExchangeRate exchangeRates2) {
-		getExchangeRates2().add(exchangeRates2);
-		exchangeRates2.setCurrency2(this);
-
-		return exchangeRates2;
-	}
-
-	public ExchangeRate removeExchangeRates2(ExchangeRate exchangeRates2) {
-		getExchangeRates2().remove(exchangeRates2);
-		exchangeRates2.setCurrency2(null);
-
-		return exchangeRates2;
-	}
-
 }
