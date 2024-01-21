@@ -84,4 +84,8 @@ public class ExpenseService {
 
 		return expenseRepository.save(newExpense);
 	}
+
+	public List<Expense> getExpensesByMonth(Integer month, String username) {
+		return expenseRepository.getExpenseByMonth(username, month);
+	}
 }

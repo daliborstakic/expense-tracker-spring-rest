@@ -49,4 +49,10 @@ public class ExpenseController {
 			throws ExpenseDoesntExistException {
 		return expenseService.changeCurrencyExpense(idExpense, username, idCurrency);
 	}
+
+	@GetMapping("/getExpensesByMonth/{month}")
+	public List<Expense> getExpensesByMonth(@PathVariable Integer month,
+			@RequestHeader("loggedUsername") String username) {
+		return expenseService.getExpensesByMonth(month, username);
+	}
 }
