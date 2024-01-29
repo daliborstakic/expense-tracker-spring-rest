@@ -17,4 +17,8 @@ public interface ExpenseRepository extends JpaRepository<Expense, Integer> {
 
 	@Query("SELECT e FROM Expense e inner join e.user u WHERE u.username = ?1 and MONTH(e.date) = ?2")
 	List<Expense> getExpenseByMonth(String username, Integer month);
+
+	@Query("SELECT e FROM Expense e " + "INNER JOIN e.user u " + "INNER JOIN e.category c "
+			+ "WHERE u.username = ?2 AND c.idCategory = ?1")
+	List<Expense> getExpensesByCategory(Integer idCategory, String username);
 }

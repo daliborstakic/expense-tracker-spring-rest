@@ -21,6 +21,11 @@ public class CustomResponseEntityExceptionHandler extends ResponseEntityExceptio
 		return new ResponseEntity<ErrorDetails<Integer>>(ed, HttpStatus.NOT_FOUND);
 	}
 
+	@ExceptionHandler(RuntimeException.class)
+	public ResponseEntity<ErrorMessage> handleRuntimeException(RuntimeException ex) {
+		return new ResponseEntity<ErrorMessage>(new ErrorMessage(ex.getMessage()), HttpStatus.BAD_REQUEST);
+	}
+
 	@ExceptionHandler(FeignException.class)
 	protected ResponseEntity<FeignErrorEntity> handleFeignException(FeignException ex, WebRequest request) {
 		FeignErrorEntity sd = new FeignErrorEntity(ex.status(), ex.contentUTF8());
@@ -38,5 +43,5 @@ public class CustomResponseEntityExceptionHandler extends ResponseEntityExceptio
 		ValidationErrorEntity sd = new ValidationErrorEntity("Total errors: " + ex.getErrorCount() + ". First error: "
 				+ ex.getFieldErrors().get(0).getDefaultMessage());
 		return new ResponseEntity<Object>(sd, HttpStatus.BAD_REQUEST);
-	}	
+	}
 }

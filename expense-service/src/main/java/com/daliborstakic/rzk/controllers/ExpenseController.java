@@ -55,4 +55,10 @@ public class ExpenseController {
 			@RequestHeader("loggedUsername") String username) {
 		return expenseService.getExpensesByMonth(month, username);
 	}
+
+	@GetMapping("/getExpensesByCategory/{idCategory}")
+	public List<Expense> getExpensesByCategory(@PathVariable Integer idCategory,
+			@RequestHeader("loggedUsername") String username) {
+		return expenseService.getExpensesByCategory(idCategory, username);
+	}
 }

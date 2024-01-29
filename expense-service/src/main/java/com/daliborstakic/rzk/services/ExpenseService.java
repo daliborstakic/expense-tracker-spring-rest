@@ -86,6 +86,15 @@ public class ExpenseService {
 	}
 
 	public List<Expense> getExpensesByMonth(Integer month, String username) {
+		if (month < 1 || month > 12)
+			throw new RuntimeException("Please enter a valid month!");
+
 		return expenseRepository.getExpenseByMonth(username, month);
+	}
+
+	public List<Expense> getExpensesByCategory(Integer idCategory, String username) {
+		categoryProxy.getCategory(idCategory);
+
+		return expenseRepository.getExpensesByCategory(idCategory, username);
 	}
 }
