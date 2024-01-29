@@ -21,4 +21,10 @@ public class ExpenseStatsController {
 			@PathVariable Integer month) {
 		return expenseStatsService.getExpenseStatsByMonth(username, month);
 	}
+
+	@GetMapping("/category/{idCategory}")
+	public StatsResult getExpenseStatsByCategory(@RequestHeader("loggedUsername") String username,
+			@PathVariable Integer idCategory) {
+		return expenseStatsService.getExpenseStatsByCategory(username, idCategory);
+	}
 }

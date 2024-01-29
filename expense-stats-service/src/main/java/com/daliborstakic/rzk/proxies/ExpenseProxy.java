@@ -17,4 +17,8 @@ public interface ExpenseProxy {
 	@GetMapping("/getExpensesByMonth/{month}")
 	List<Expense> getExpensesByMonth(@RequestHeader("loggedUsername") String username,
 			@PathVariable("month") Integer month);
+
+	@GetMapping("/getExpensesByCategory/{idCategory}")
+	public List<Expense> getExpensesByCategory(@PathVariable Integer idCategory,
+			@RequestHeader("loggedUsername") String username);
 }
